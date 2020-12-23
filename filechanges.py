@@ -12,7 +12,7 @@ def connectdb():
     try:
         dbfile = getbasefile() + '.db'
         conn = sqlite3.connect(dbfile , timeout=2)
-        print (sqlite3.version)
+        print ("Opened database sucessfully")
 
     except Error as e:
         print(e)
@@ -20,4 +20,7 @@ def connectdb():
     finally:
         if conn:
             conn.close()
-            print("The conncection is closed to the database")
+            print("The connection is closed to the database")
+
+
+connectdb()
