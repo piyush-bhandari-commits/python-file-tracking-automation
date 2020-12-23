@@ -12,6 +12,7 @@ def connectdb():
     try:
         dbfile = getbasefile() + '.db'
         conn = sqlite3.connect(dbfile , timeout=2)
+        print (sqlite3.version)
 
     except Error as e:
         print(e)
