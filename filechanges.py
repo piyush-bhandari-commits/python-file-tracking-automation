@@ -29,7 +29,6 @@ def connectdb():
 
     return conn
 
-
 def corecursor(conn, query, args):
     """
     Opens the sqlite database cursor
@@ -43,7 +42,7 @@ def corecursor(conn, query, args):
         numrows = len(list(rows))
         if numrows > 0:
             result = True
-            
+
     except Error as e:
         print(e)
 
@@ -53,18 +52,19 @@ def corecursor(conn, query, args):
     
     return result
 
-
 def tableexists(table):
     """
     Checks if a SQLite DB Table exists
     """
     result = False
+
     try:
         conn = connectdb()
         if conn != None:
                    query = "SELECT name FROM sqlite_master WHERE type ='table' AND name NOT LIKE 'sqlite_%'" # Finish this query ...
                    args = (table,)
                    result = corecursor(conn, query, args)
+
     except Error as e:
         print(e)
 
@@ -73,7 +73,6 @@ def tableexists(table):
             conn.close()
             print("Closed connection to the database successfully")    
     return result
-
 
 def createhashtable():
     """
