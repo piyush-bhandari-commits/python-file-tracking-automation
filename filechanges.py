@@ -17,15 +17,17 @@ def connectdb():
     try:
         dbfile = getbasefile() + '.db'
         conn = sqlite3.connect(dbfile , timeout=2)
-        print ("Opened database sucessfully")
+        print ("Opened connection to database sucessfully")
 
     except Error as e:
         print(e)
 
-    finally:
-        if conn:
-            conn.close()
-            print("The connection is closed to the database")
+    # finally:
+    #     if conn:
+    #         conn.close()
+    #         print("The connection is closed to the database")
+
+    return conn
 
 
 def corecursor(conn, query, args):
@@ -41,14 +43,15 @@ def corecursor(conn, query, args):
         numrows = len(list(rows))
         if numrows > 0:
             result = True
+            
     except Error as e:
         print(e)
+
     finally:
         if cur != None:
             cur.close()
     
     return result
-
 
 
 def tableexists(table):
@@ -64,13 +67,31 @@ def tableexists(table):
                    result = corecursor(conn, query, args)
     except Error as e:
         print(e)
-    
+
     finally:
         if conn != None:
             conn.close()
+            print("Closed connection to the database successfully")    
+    return result
 
+
+def createhashtable():
+    """
+    Creates a SQLite DB Table
+    """
+    result = False
+    query = "CREATE TABLE ..." # Finish this query ...
+    try:
+        conn = connectdb()
+        if not conn is None:
+            if not tableexists('files'):
+                try:
+                    cursor = conn.cursor()
+                    cursor.execute(query)
+                    # To be continued ...
+    return result
     
     
 
 if __name__ == "__main__":
-    connectdb()
+    result = tableexists()
