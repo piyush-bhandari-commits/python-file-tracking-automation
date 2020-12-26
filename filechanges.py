@@ -79,18 +79,21 @@ def createhashtable():
     Creates a SQLite DB Table
     """
     result = False
-    query = "CREATE TABLE ..." # Finish this query ...
+    query = "CREATE TABLE files IF NOT EXISTS" # Finish this query ...
     try:
         conn = connectdb()
-        if not conn is None:
+        if conn != None:
             if not tableexists('files'):
                 try:
                     cursor = conn.cursor()
                     cursor.execute(query)
-                    # To be continued ...
-    return result
-    
-    
+                except Error as e:
+                    print(e)    
+    finally:
+        if conn != None:
+            conn.close()
+            print ("Connection to database closed successfully...")
 
+    
 if __name__ == "__main__":
-    result = tableexists()
+    createhashtable()
