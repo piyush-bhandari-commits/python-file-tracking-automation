@@ -28,24 +28,41 @@ def create_connection():
 class FileChangeDatabase:
 
     def __init__(self,):
+        """
+        Initiates the cursor and connection object to the database
+        """
         self.conn, self.cur = create_connection()
         print("\nConnection to database OPENED successfully...\n")
-
-    def create_table(self, query):
+    
+    def create_table(self, table_name):
         """
-        This method is used to create different tables in the database
+        Method used to create different tables in the database
         """
+        self.cur.execute("CREATE TABLE {} IF NOT EXISTS".format(table_name))
+        rows = self.cur.fetchall()
+        for row in rows:
+            print(row)
+        print("Table with name: {} created successfully...".format(table_name))
 
+    def create_index(self, table_name, index_name):
+        """
+        Method used to create index for different tables in the database
+        """
+        self.cur.execute("CREATE INDEX {} ON {}".format(table_name, index_name))
+        rows = self.cur.fetchall()
+        for row in rows:
+            print(row)
+        print("Index with name {} on table {} created successfully...".format(index_name, table_name))
         pass
 
-    
-    
-    
     def close_connection(self,):
         if self.conn != None:
             self.conn.close()
-            print("Connection to database CLOSED successfully...")
+            print("\nConnection to database CLOSED successfully...\n")
 
-if __name__ == "__main__":
     
-    pass
+if __name__ == "__main__":
+
+    db_instance = FileChangeDatabase()
+
+    db_instance.close_connection()
