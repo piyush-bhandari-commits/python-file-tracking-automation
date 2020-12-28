@@ -44,7 +44,7 @@ class FileChangeDatabase:
             print(row)
         print("Table with name: {} created successfully...".format(table_name))
 
-    def create_index(self, table_name, index_name):
+    def create_table_index(self, table_name, index_name):
         """
         Method used to create index for different tables in the database
         """
